@@ -1,5 +1,7 @@
 package com.basepackage.utility;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -22,17 +24,58 @@ public class GenericElementPickerClass {
 		WebElement element=null;
 		System.out.println("type: "+type);
 		switch(type.toLowerCase()){
-		case "id": System.out.println("Element found by ID"); element=this.driver.findElement(By.id(locator)); break;
-		case "class": System.out.println("Element found by class"); element=this.driver.findElement(By.className(locator));break;
-		case "xpath": System.out.println("Element found by xpath"); element=this.driver.findElement(By.xpath(locator));break;
-		case "css": System.out.println("Element found by css"); element=this.driver.findElement(By.cssSelector(locator));break;
-		case "linktext": System.out.println("Element found by linktext"); element=this.driver.findElement(By.linkText(locator));break;
-		case "partiallinktext": System.out.println("Element found by partiallinktext"); element=this.driver.findElement(By.partialLinkText(locator));break;
+		case "id": System.out.println("Element found by ID");
+				   element=this.driver.findElement(By.id(locator)); 
+				   break;
+		case "class": System.out.println("Element found by class");
+					  element=this.driver.findElement(By.className(locator));
+					  break;
+		case "xpath": System.out.println("Element found by xpath"); 
+					  element=this.driver.findElement(By.xpath(locator));
+					  break;
+		case "css": System.out.println("Element found by css"); 
+		     		element=this.driver.findElement(By.cssSelector(locator));
+		     		break;
+		case "linktext": System.out.println("Element found by linktext"); 
+		 				 element=this.driver.findElement(By.linkText(locator));
+		 				 break;
+		case "partiallinktext": System.out.println("Element found by partiallinktext"); 
+		  						element=this.driver.findElement(By.partialLinkText(locator));
+		  						break;
 		default : System.out.println("Element not found"); break;
 		}
 		return element;
 		
 	}
+	
+	public List<WebElement> getElements(String locator, String type) {
+		List<WebElement> element=null;
+		System.out.println("type: "+type);
+		switch(type.toLowerCase()){
+		case "id": System.out.println("Element found by ID");
+				   element=this.driver.findElements(By.id(locator)); 
+				   break;
+		case "class": System.out.println("Element found by class");
+					  element=this.driver.findElements(By.className(locator));
+					  break;
+		case "xpath": System.out.println("Element found by xpath"); 
+					  element=this.driver.findElements(By.xpath(locator));
+					  break;
+		case "css": System.out.println("Element found by css"); 
+		     		element=this.driver.findElements(By.cssSelector(locator));
+		     		break;
+		case "linktext": System.out.println("Element found by linktext"); 
+		 				 element=this.driver.findElements(By.linkText(locator));
+		 				 break;
+		case "partiallinktext": System.out.println("Element found by partiallinktext"); 
+		  						element=this.driver.findElements(By.partialLinkText(locator));
+		  						break;
+		default : System.out.println("Element not found"); break;
+		}
+		return element;
+		
+	}
+	
 	public static void main(String[] args) {
 		WebDriver drive=new ChromeDriver();
 		String baseUrl="https://www.letskodeit.com/practice";
@@ -43,6 +86,12 @@ public class GenericElementPickerClass {
 		System.out.println("Click Hide Button");
 		element.click();
 		System.out.println("Is Element Displayed? "+element.isDisplayed());
+		
+		List<WebElement> ele=obj.getElements("//input[contains(@name,'cars') and contains(@type,'radio')]", "xpath");
+		for(int i=0;i<ele.size();i++) {
+			ele.get(i).click();
+			System.out.println("Radio Selected "+ele.get(i).getAttribute("value")+" -> "+ele.get(i).isSelected());
+		}
 		
 	}
 }
